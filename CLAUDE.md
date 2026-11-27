@@ -76,11 +76,20 @@ This repo is a job application workspace. Claude acts as a career advisor and ap
 - [DEALBREAKER_1]
 - [DEALBREAKER_2]
 
+## Region and personal-data rules (North America edition)
+- **Default region:** Canada (British Columbia first) and the United States. Show pay in CAD for Canadian postings and USD for US postings.
+- **Personal facts** (work authorization, clearance, military service, location tiers, salary floor) live in `profile/profile.local.md` (gitignored, may not exist). Read it before evaluating or drafting. `[FILL IN]` means unknown: ask, never guess. See `profile/README.md`.
+- **Never invent** employers, dates, degrees, certifications, clearances, licences, or veterans' preference. Do not claim anything that is not confirmed in the profile.
+- **Résumé format:** North American (no photo, no date of birth, no marital status), US Letter by default. Details in `docs/north-america.md`.
+- **No outreach on the user's behalf:** do not submit applications, create job-board accounts or contact employers without explicit approval.
+
 ## Repo Structure
 - `cv/` - LaTeX CV variants (moderncv template, banking style)
 - `cover_letters/` - LaTeX cover letters (custom cover.cls template)
 - `.claude/skills/` - AI skill definitions for the application workflow
-- `.agents/skills/` - Job search CLI tools
+- `.agents/skills/` - Optional Danish job search CLI tools
+- `profile/` - profile template (tracked) and private profile (gitignored)
+- `docs/north-america.md` - North American conventions and boards
 
 ## Workflow for New Job Applications
 1. User provides a job posting (URL or text)

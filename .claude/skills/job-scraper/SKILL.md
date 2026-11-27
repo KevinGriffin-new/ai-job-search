@@ -1,14 +1,14 @@
 # Job Scraper
 
 **name:** job-scraper
-**description:** Scrapes Danish job sites for new positions matching your profile. Deduplicates across runs. Triggers on: job scrape, find jobs, search jobs, new jobs, job search, scrape jobs, /scrape
+**description:** Scrapes job boards (North America by default: Canada and US; Danish portals optional) for new positions matching your profile. Deduplicates across runs. Triggers on: job scrape, find jobs, search jobs, new jobs, job search, scrape jobs, /scrape
 **allowed-tools:** Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, Agent, AskUserQuestion
 
 ---
 
 ## How It Works
 
-This skill searches multiple Danish job sites using targeted queries based on your profile, deduplicates against previously seen jobs and the application tracker, and presents new matches with a quick fit assessment.
+This skill searches multiple job sites (Canada and the US by default, see `search-queries.md`) using targeted queries based on your profile, deduplicates against previously seen jobs and the application tracker, and presents new matches with a quick fit assessment.
 
 ## Invocation
 
@@ -30,7 +30,8 @@ Optional arguments:
 
 1. Read `job_scraper/seen_jobs.json` (create if missing - start with `{"seen": {}}`)
 2. Read `job_search_tracker.csv` to extract already-applied companies+roles
-3. Read `search-queries.md` (this directory) for the search strategy
+3. Read `search-queries.md` (this directory) for the search strategy, boards, role families, work-authorization filter and exclusion rules
+4. If `profile/profile.local.md` exists, read it for work authorization, location tiers, salary floor and role priorities. Any `[FILL IN]` value is unknown: do not assume it, and mention it in the results when it affects a posting (for example Canadian status for a public-service job)
 
 ### Step 1: Search
 
@@ -39,7 +40,8 @@ Run **WebSearch** queries from `search-queries.md`. By default, run the top 3 pr
 If the user specified a focus area (e.g. "data science"), prioritize queries from that category.
 
 For each search:
-- Use `WebSearch` with site-specific queries (jobindex.dk, linkedin.com/jobs, karriere.dk, etc.)
+- Use `WebSearch` with site-specific queries (ca.indeed.com, indeed.com, linkedin.com/jobs, jobbank.gc.ca, usajobs.gov, gogeomatics.ca and the other boards listed in `search-queries.md`)
+- Danish portals (`.agents/skills/job*-search`) are optional and only for users searching in Denmark
 - Target your configured geographic area
 - Look for postings from the last 14 days
 
@@ -47,7 +49,7 @@ For each search:
 
 For each promising result from Step 1:
 - Use `WebFetch` to retrieve the job posting page
-- Extract: **job title**, **company**, **location**, **posting date** (or "recent"), **URL**, **key requirements** (brief), **application deadline** (if listed)
+- Extract: **job title**, **company**, **location**, **posting date** (or "recent"), **URL**, **key requirements** (brief), **pay** with its currency (CAD or USD) and period (hourly or annual) if listed, **work-authorization or clearance requirement** if stated, **application deadline** (if listed)
 - Skip if the URL or company+title combo already exists in `seen_jobs.json`
 - Skip if the company+role already appears in `job_search_tracker.csv`
 
@@ -55,6 +57,7 @@ For each promising result from Step 1:
 
 For each new job, do a rapid fit check (NOT the full evaluation from `04-job-evaluation.md` - just a quick signal):
 
+- Apply the exclusion rules and work-authorization filter from `search-queries.md` first. Skipped postings are still logged.
 - **High match**: Role directly involves your core skills
 - **Medium match**: Role is adjacent to your experience
 - **Low match**: Role requires significant skills you lack
@@ -87,9 +90,9 @@ Present new jobs in a table sorted by fit (high first):
 
 Found X new positions (Y high, Z medium, W low match).
 
-| # | Fit | Title | Company | Location | Deadline | URL |
-|---|-----|-------|---------|----------|----------|-----|
-| 1 | High | ... | ... | ... | ... | [Link](...) |
+| # | Fit | Title | Company | Location | Pay (CAD/USD) | Auth/clearance | Deadline | URL |
+|---|-----|-------|---------|----------|---------------|----------------|----------|-----|
+| 1 | High | ... | ... | ... | ... | ... | ... | [Link](...) |
 
 ### High-Match Highlights
 For each high-match job, add 2-3 bullet points:
@@ -113,7 +116,9 @@ If the user decides to apply to any job, add a row to `job_search_tracker.csv`.
 
 1. **Never fabricate job postings.** Only present jobs found via actual WebSearch/WebFetch results.
 2. **Respect deduplication.** Always check seen_jobs.json AND job_search_tracker.csv before presenting.
-3. **Focus on configured geographic area.** Skip jobs that require relocation or are clearly outside commute range.
+3. **Focus on the configured geographic area.** Use the location tiers in `profile/profile.local.md` (or the defaults in `search-queries.md`). Skip jobs outside them unless the user has said he will relocate.
 4. **Only open positions.** Skip postings with expired deadlines or those marked as closed.
 5. **Be efficient with WebFetch.** Don't fetch every search result - use titles and snippets to pre-filter before fetching.
 6. **Parallel searches.** Use the Agent tool or parallel WebSearch calls to speed up the search phase.
+7. **Never submit anything.** This skill only finds and ranks postings. Applying, creating accounts on job boards and contacting employers need the user's explicit go-ahead.
+8. **Show money in the posting's own currency** (CAD or USD). Do not convert unless asked.

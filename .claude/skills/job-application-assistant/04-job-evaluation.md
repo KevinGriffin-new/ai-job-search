@@ -44,13 +44,20 @@ Does the role and company culture match the behavioral profile?
 | 40-59 | Some friction areas |
 | 0-39 | Significant culture mismatch |
 
+**Pay:** compare in the posting's own currency (CAD for Canada, USD for the US) against the floor in the profile. Note hourly vs. annual, and union or collective-agreement grid rates for municipal and public-service jobs.
+
 **Red flags to research:** Department disorganization, work dominated by maintenance over development, poor chemistry with leadership, culture mismatches. Check reviews, media coverage, LinkedIn connections, and network contacts for insider perspective.
 
-### 4. Location & Logistics (Pass/Fail + Notes)
-- Within commute range: PASS
-- Remote with occasional office: PASS
-- Requires relocation: FAIL (deal-breaker)
-- Frequent international travel: FLAG (discuss with user)
+### 4. Location, Work Authorization & Logistics (Pass/Fail + Notes)
+Read the location tiers and work-authorization facts in `profile/profile.local.md` if it exists. `[FILL IN]` means unknown: ask, do not assume.
+- Within the ideal or acceptable location tier: PASS
+- Remote with occasional office: PASS (if the employer can hire in the user's province/state)
+- Requires relocation: FAIL unless the profile says the user will relocate there
+- **Work authorization:** posting requires Canadian citizenship/PR, US citizenship, or a work permit the user may not hold: FLAG with the exact wording; FAIL only if the profile confirms the user lacks it
+- **Security clearance** required and none held: FLAG (usually FAIL for the role as posted)
+- **Licence required** (P.Eng, BCLS, CLS, PLS) and not held: FAIL
+- Cross-border remote (US employer, Canadian resident or the reverse): FLAG (payroll, tax and employer policy)
+- Frequent travel or field camps, driver's licence or own vehicle required: FLAG (discuss with user)
 
 ### 5. Career Alignment & Motivation (0-100)
 Does this role advance career goals and contain tasks that energize?
@@ -78,6 +85,8 @@ Does this role advance career goals and contain tasks that energize?
 - **Professional development**: [YOUR_GROWTH_PRIORITIES]
 
 ### 6. Salary Benchmark (Optional)
+
+`salary_lookup.py` reads a user-supplied Danish-style company index (`salary_data.json`). It is **not** a North American wage source. For Canada, use the Job Bank wage report for the NOC occupation and region (jobbank.gc.ca) and the posting's own range. For the US, use BLS Occupational Employment and Wage Statistics (bls.gov/oes) and the posting's own range. Report the source and year.
 
 If the salary lookup tool is configured (`salary_data.json` exists), look up the company:
 ```
@@ -111,7 +120,7 @@ Present the evaluation as:
 | Technical Skills | XX/100 | [brief note] |
 | Experience Match | XX/100 | [brief note] |
 | Behavioral Fit | XX/100 | [brief note] |
-| Location | PASS/FAIL | [brief note] |
+| Location & Authorization | PASS/FLAG/FAIL | [brief note] |
 | Career Alignment | XX/100 | [brief note] |
 
 **Overall Score: XX/100** (weighted average of scored dimensions)
@@ -129,7 +138,7 @@ Present the evaluation as:
 
 ### Company Research Checklist
 - [ ] Checked company website (mission, values, recent news)
-- [ ] Checked review sites (Glassdoor, Jobindex, etc.)
+- [ ] Checked review sites (Glassdoor, Indeed company reviews, Reddit, etc.)
 - [ ] Checked LinkedIn for team size, recent hires, connections
 - [ ] Checked media for restructuring, growth, or workplace issues
 - [ ] Identified network contacts who may know the team/manager

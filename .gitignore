@@ -67,3 +67,7 @@ upskill/*.md
 
 # Agent usage logs
 .agents/
+
+# Personal profile for this fork (never commit). Keep profile/profile.example.md as the public template.
+profile/*.local.md
+profile/*.local.*

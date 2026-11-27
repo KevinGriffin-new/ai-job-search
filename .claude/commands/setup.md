@@ -245,7 +245,7 @@ Walk through each section conversationally. Ask questions naturally, not as a fo
 ### Section 1: Identity & Contact
 Ask about:
 - Full name
-- Location (city, country)
+- Location (city, province/state, country). Do not ask for date of birth, marital status or a photo. They are not used on North American résumés
 - Phone, email, LinkedIn, GitHub
 - Languages spoken (with proficiency levels)
 - Current employment status
@@ -313,7 +313,10 @@ Ask about:
 - **Key skills as search terms:** "Which of your skills are most likely to appear in job postings?" Pick 3-5 that are distinctive and searchable.
 - **Target companies (optional):** "Are there specific companies you'd like to monitor for openings?"
 - **Geographic scope:** "Which cities or regions should I search in? How far are you willing to commute?" Use this to define the location filter tiers (ideal, acceptable, borderline, too far).
-- **Job portals:** "The framework includes tools for Danish job portals (Jobindex, Jobbank, Jobdanmark, Jobnet). Are these the right ones for you, or do you use other sites?" Note: if the user is outside Denmark, acknowledge that the built-in CLI tools are Denmark-specific and suggest they can add their own portal integrations or rely on LinkedIn/Google site-searches.
+- **Job portals:** The default search config targets North America (Indeed CA/US, LinkedIn, Job Bank Canada, USAJOBS, BC Public Service, plus niche boards listed in `search-queries.md`). Ask: "Are these the right ones, or do you use other sites?" The bundled Danish CLIs under `.agents/skills/` are only for users searching in Denmark. For anyone else, rely on `WebSearch` with the `site:` queries in `search-queries.md`.
+- **Work authorization (ask explicitly):** "For each country you would work in, are you a citizen, permanent resident, on a work permit, or would you need sponsorship? Do you hold a security clearance? Do you have military service that might qualify for US veterans' preference?" Record answers exactly. If unsure, write `[FILL IN]`. Never assume.
+- **Compensation:** "What is your pay floor, and in which currency (CAD, USD)? Hourly or annual? Contract or permanent?"
+- **Public repo warning:** If the repo is public (`gh repo view --json visibility`), tell the user that `/setup` writes personal data into tracked files, and offer to write it to `profile/profile.local.md` (gitignored) instead. See `profile/README.md`.
 
 **Important:** Also suggest role types the user may not have considered, based on their skill profile. For example:
 - If they have strong Python + domain expertise: "Have you considered roles like 'Technical Consultant' or 'Solutions Engineer' in your domain?"

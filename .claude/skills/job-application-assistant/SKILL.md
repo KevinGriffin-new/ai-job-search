@@ -6,6 +6,10 @@
 
 ---
 
+## Where the personal facts come from
+
+If `profile/profile.local.md` exists (gitignored), read it before evaluating or drafting. It is the source of truth for work authorization, location tiers, salary floor and role priorities. Anything marked `[FILL IN]` is unknown: ask the user. Never invent employers, dates, degrees, certifications, clearances or licences. North American conventions (résumé format, USAJOBS, Canadian public-service rules) are in `docs/north-america.md`.
+
 ## Workflow
 
 When the user provides a job posting (URL or text), follow this workflow:

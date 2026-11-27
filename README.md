@@ -8,7 +8,7 @@ An AI-powered job application framework built on [Claude Code](https://claude.co
 
 ## What this is
 
-A structured workflow that turns Claude Code into a full-stack job application assistant. The core workflow (self-profiling, fit evaluation, and the drafter-reviewer application pipeline) is **language- and country-agnostic**. The job portal search skills are built for the Danish market (Jobindex, Jobnet, Akademikernes Jobbank, etc.), but the pattern is designed to be swapped for your local job boards.
+A structured workflow that turns Claude Code into a full-stack job application assistant. The core workflow (self-profiling, fit evaluation, and the drafter-reviewer application pipeline) is **language- and country-agnostic**. The bundled job portal CLIs (under `.agents/skills/`) are built for the Danish market (Jobindex, Jobnet, Akademikernes Jobbank, etc.) and are optional. This fork's branch also ships a **North America edition** of the search config: Canada (British Columbia first) and the US, with CAD/USD pay, North American résumé conventions, work-authorization checks and niche geomatics/metrology boards. See [docs/north-america.md](docs/north-america.md).
 
 ```
 /setup          /scrape              /apply <url>
@@ -32,7 +32,7 @@ The framework encodes career guidance best practices, including structured evalu
 
 - [Claude Code](https://claude.com/claude-code) (CLI)
 - Python 3.10+
-- [Bun](https://bun.sh) (for Danish job search CLI tools)
+- [Bun](https://bun.sh) (only for the optional Danish job search CLI tools)
 - LaTeX distribution with `lualatex` and `xelatex`: [TeX Live](https://tug.org/texlive/) or [MiKTeX](https://miktex.org/). The CV compiles with `lualatex` (pdflatex often fails on modern MiKTeX installs with `fontawesome5` font-expansion errors); the cover letter compiles with `xelatex` because `cover.cls` requires `fontspec`.
 
 ## Quick start
@@ -44,7 +44,9 @@ gh repo fork MadsLorentzen/ai-job-search --clone
 cd ai-job-search
 ```
 
-### 2. Install job search tools
+### 2. Install job search tools (optional, Denmark only)
+
+North American searching uses `WebSearch` and the `site:` queries in `.claude/skills/job-scraper/search-queries.md`, so you can skip this step.
 
 ```bash
 cd .agents/skills/jobbank-search/cli && bun install && cd ../../../..
@@ -118,7 +120,9 @@ ai-job-search/
 │   │   ├── job-scraper/               # Job search orchestration
 │   │   └── upskill/                   # /upskill skill gap analysis and learning plan
 │   └── settings.local.json            # Claude Code permissions
-├── .agents/skills/                    # Job portal CLI tools (Denmark)
+├── docs/north-america.md              # Canada/US defaults, résumé format, work authorization, boards
+├── profile/                           # profile.example.md (tracked), profile.local.md (gitignored)
+├── .agents/skills/                    # Optional job portal CLI tools (Denmark)
 │   ├── jobbank-search/                # Akademikernes Jobbank
 │   ├── jobdanmark-search/             # Jobdanmark.dk
 │   ├── jobindex-search/               # Jobindex.dk

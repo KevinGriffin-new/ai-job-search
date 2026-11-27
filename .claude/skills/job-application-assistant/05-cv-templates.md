@@ -18,10 +18,21 @@ cd cv && lualatex -interaction=nonstopmode main_<company>.tex
 
 Expected output: `Output written on main_<company>.pdf (2 pages, ...)`. Any page count other than 2 is a failure that must be fixed before presenting to the user.
 
+## North American résumé conventions
+
+- **Do not include:** a photo, date of birth, age, marital status, nationality line, religion, or a full street address. City and province/state, email, phone and links are enough.
+- **Paper:** US Letter (8.5 x 11 in) by default. A4 is acceptable if the employer asks or is outside North America.
+- **Length:** 1 to 2 pages for private-sector roles. Skills-based and results-first bullets. Use month and year for dates.
+- **Work authorization:** state it only if the posting asks or it removes doubt (for example "US citizen; Canadian status: [FILL IN]"). Use the exact facts in `profile/profile.local.md`. Never claim veterans' preference, clearance or Canadian status that is not confirmed.
+- **Military service:** list it as an ordinary role (branch, rank if confirmed, dates, transferable duties). Add a DD-214 only when a US federal application asks for it.
+- **Certifications:** list only ones actually held, with the issuing body and year. Licences such as P.Eng, BCLS and PLS must never appear unless held.
+- **Canadian public-sector and municipal postings** (BC Public Service, cities) often require the résumé to show how you meet each listed qualification, with start and end month/year for every role. Mirror the posting's wording.
+- **USAJOBS** résumés are longer and ask for hours per week, supervisor and salary per role. Follow the posting, not the 2-page rule.
+
 ## Document Structure
 
 ```latex
-\documentclass[11pt,a4paper,sans]{moderncv}
+\documentclass[11pt,letterpaper,sans]{moderncv} % North America: letterpaper. Use a4paper only if the employer asks
 \moderncvstyle{banking}
 \moderncvcolor{blue}
 

@@ -147,7 +147,8 @@ The font wrapper is mandatory — if you just move `\begin{itemize}` outside `\l
 ### Non-English Cover Letters
 - Same template structure, just write content in the posting's language
 - Adjust date format to local convention
-- Adjust closing to local convention (e.g. "Med venlig hilsen," for Danish)
+- Adjust closing to local convention (e.g. "Cordialement," for French, "Med venlig hilsen," for Danish)
+- North America: write dates as `Month D, YYYY` (for example `November 26, 2026`), use "Sincerely," or "Kind regards,", address the letter to a named person when known, and do not include a photo, date of birth or marital status
 
 ## Checklist Before Finalizing
 - [ ] No em-dashes (use commas or periods instead)

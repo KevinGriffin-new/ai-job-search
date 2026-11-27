@@ -16,12 +16,14 @@ Follow these steps **exactly in order**. Do not skip steps.
 
 - If `$ARGUMENTS` looks like a URL, use `WebFetch` to retrieve the job posting content.
 - If it is pasted text, use it directly.
-- Extract: **company name**, **role title**, **department** (if mentioned), **location**, and **language** of the posting (Danish or English).
+- Extract: **company name**, **role title**, **department** (if mentioned), **location**, and **language** of the posting (English by default; French for Quebec or federal bilingual roles; Danish if you use the optional Danish portals), **pay and currency**, and any **work-authorization, clearance or licence requirement**.
 - Store these for use throughout the workflow.
 
 ---
 
 ## Step 1: DRAFTER - Evaluate Fit
+
+If `profile/profile.local.md` exists, read it first. It holds work authorization, location tiers and the salary floor. `[FILL IN]` means unknown: ask the user, never guess, and never write an unconfirmed fact (for example veterans' preference or Canadian status) into a CV, cover letter or application form.
 
 Read the evaluation framework:
 - `.claude/skills/job-application-assistant/04-job-evaluation.md`
@@ -64,14 +66,16 @@ Also read the most recent existing CV and cover letter files for concrete struct
 - Read any existing `cover_letters/cover_*.tex` or `cover_letters/Cover_*.tex` file as a template reference
 
 ### CV (`cv/main_<company>.tex`)
-- Always in **English**
+- Always in **English** unless the posting asks for French
+- Use a **North American résumé format**: no photo, no date of birth, no marital status, no nationality line. Letter paper is the default (A4 is fine if the employer asks). Start with a short profile statement and results-first bullets. See `docs/north-america.md`
+- For **USAJOBS / US federal** postings, follow the posting's résumé requirements (hours per week, dates in month/year, supervisor, salary) instead of the 2-page limit
 - Follow the moderncv/banking format from `05-cv-templates.md`
 - Tailor the profile statement and experience bullets to the specific role
 - Reframe skills and achievements to match job requirements
 - Keep to 2 pages
 
 ### Cover Letter (`cover_letters/cover_<company>_<role>.tex`)
-- **Match the language of the job posting** (Danish posting -> Danish cover letter, English posting -> English cover letter)
+- **Match the language of the job posting** (English posting -> English cover letter, French posting -> French cover letter, Danish posting -> Danish cover letter)
 - Follow the structure from `06-cover-letter-templates.md`
 - Use the `cover.cls` template
 - Tailor the opening paragraph to the specific role and company
